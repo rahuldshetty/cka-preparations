@@ -1,0 +1,22 @@
+# ReplicaSet needs selector as it can manage pods which were not created part of RS
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: my-app-rs
+  labels:
+    app: my-app-rs
+    env: stage
+spec:
+  replicas: 3
+  template:
+    metadata:
+      name: my-app
+      labels:
+        app: my-app
+        type: front-end
+    containers:
+      - image:  nginx
+        name:  nginx
+  selector:
+    matchLabels:
+      app: my-app-rs
