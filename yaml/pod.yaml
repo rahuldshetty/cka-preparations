@@ -6,6 +6,13 @@ metadata:
   labels:
     name: myapp-pod
 spec:
+  # nodeName: node02
+  # tolerations:
+  #   - key: "app"
+  #     operator: "Equal"
+  #     value: "blue"
+  #     effect: "NoSchedule"
+  # schedulerName: custom-scheduler
   containers:
   - name: myapp-pod
     image: nginx
@@ -15,3 +22,19 @@ spec:
         cpu: "500m"
     ports:
       - containerPort: 80
+  # nodeSelector:
+  #   size: Large 
+  # affinity:
+  #   nodeAffinity:
+  #     requiredDuringSchedulingIgnoredDuringExecution:
+  #       nodeSelectorTerms:
+  #         - matchExpressions:
+  #           - key: size
+  #             operator: In
+  #             values:
+  #             - Large
+  #             - Medium
+              # - key: size
+              #   operator NotIn
+              #   values:
+              #   - Small

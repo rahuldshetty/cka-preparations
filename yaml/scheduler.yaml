@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-custom-scheduler
+  namespace: kube-system
+  labels:
+    name: my-custom-scheduler
+spec:
+  containers:
+  - name: my-custom-scheduler
+    image: my-custom-scheduler
+    command:
+    - kube-scheduler
+    - --address ...
+    - --scheduler-name=my-custom-scheduler
+    - --lock-object-name=my-custom-scheduler

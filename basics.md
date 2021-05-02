@@ -19,3 +19,11 @@
 
 # List pods in all namespace
 `kubectl get po --all-namespaces`
+
+# Node Port Range
+30000 - 32767
+
+# SSH into node
+kubectl get node node01 -o wide
+Use internal ip address: ssh internal-ip
+ 
