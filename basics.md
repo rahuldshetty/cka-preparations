@@ -27,3 +27,8 @@
 kubectl get node node01 -o wide
 Use internal ip address: ssh internal-ip
  
+ # Config Map
+ `k create configmap app-config --from-literal=APP_COLOR=blue --from-literal=APP_COLOR2=blue2`
+ `k create configmap app-config --from-file=app.properties`
+
+ 

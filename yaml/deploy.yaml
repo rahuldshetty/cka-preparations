@@ -8,6 +8,8 @@ metadata:
     env: stage
 spec:
   replicas: 3
+  strategy:
+    type: Recreate # RollingUpdate (default)
   template:
     metadata:
       name: my-app
