@@ -31,4 +31,6 @@ Use internal ip address: ssh internal-ip
  `k create configmap app-config --from-literal=APP_COLOR=blue --from-literal=APP_COLOR2=blue2`
  `k create configmap app-config --from-file=app.properties`
 
- 
+ # Secret
+`k create secret generic my-secret --from-literal=PASS=abcd`
+`k create secret generic my-secret --from-file=app.properties`

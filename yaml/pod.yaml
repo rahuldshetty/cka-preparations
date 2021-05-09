@@ -13,6 +13,10 @@ spec:
   #     value: "blue"
   #     effect: "NoSchedule"
   # schedulerName: custom-scheduler
+  initContainers:
+    - name: pull-code
+      image: busybox
+      command: ["sh", "-c", "git clone repo; done;"]
   containers:
   - name: myapp-pod
     image: nginx
@@ -22,6 +26,11 @@ spec:
         cpu: "500m"
     ports:
       - containerPort: 80
+    envFrom:
+      - configMapRef:
+          name: acnd
+      - secretRef:
+          name: abcd
   # nodeSelector:
   #   size: Large 
   # affinity:
