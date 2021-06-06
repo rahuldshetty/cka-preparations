@@ -42,3 +42,36 @@ Update kubelet version: `kubeadm upgrade node config --kubelet-version v1.12.0`
 Restart service: `systemctl restart kubelet`
 Mark schedulable: `kubectl uncordon node-01`
 
+# Backup all resources
+kubectl --all-namespaces get all -o yaml --export > all-resource.yaml
+
+Tools: Velero by HeptIO
+
+ETCD CLuster:
+Stores state of application.
+Hosted on Master node
+stored under --data-dir path
+Provides built in snapshot
+
+Take Snapshot: ETCDCTL_API=3 etcdctl snapshot save snapshot.db
+View status: ETCDCTL_API=3 etcdctl snapshot status snapshot.db
+To Restore: 
+1) Stop kube-apiserver: service kube-apiserver stop
+2) RUN resotre: ETCDCTL_API=3 etcdctl snapshot restore snapshot.db --data-dir /var/lib/etcd-from-backup (new data drectory)
+3) Edit etcd.service to read from new data dir:
+ExeccStart=/usr/local...
+--data-dir=/var/lib/etcd-from-backup
+4) systemctl daemon-reload
+5) service etcd restart
+6) service kube-apiserver start
+
+For all the etcd command specify:
+1) endpoint (:2379)
+2) cacert
+3) cert
+4) key
+
+export ETCDCTL_API=3
+etcdctl snapshot save --cacert=/etc/kubernetes/pki/etcd/ca.crt --cert=/etc/kubernetes/pki/etcd/server.crt --key=/etc/kubernetes/pki/etcd/server.key /opt/snapshot-pre-boot.db
+
+etcdctl snapshot restore --cacert=/etc/kubernetes/pki/etcd/ca.crt --cert=/etc/kubernetes/pki/etcd/server.crt --key=/etc/kubernetes/pki/etcd/server.key /opt/snapshot-pre-boot.db --data-dir /var/lib/etcd-from-backup 
